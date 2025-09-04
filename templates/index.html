@@ -1,8 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="text-center">
-    <h1>Welcome to the AI Diabetes Predictor</h1>
-    <p class="lead">Using Artificial Intelligence to predict the risk of diabetes.</p>
-    <a href="/predict" class="btn btn-primary btn-lg">Try Prediction</a>
-</div>
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <h1 class="hero__title">Check your diabetes risk with AI</h1>
+      <p class="hero__sub">Answer a few questions and get an instant, private risk estimate powered by our model.</p>
+      <a class="btn btn-cta" href="/predict">Start risk check</a>
+    </div>
+    <div class="hero__art">
+      <img src="{{ url_for('static', filename='images/hero.jpg') }}" alt="Risk calculator illustration" onerror="this.style.display='none'">
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <span class="feature__icon">🔒</span>
+    <h3>Private</h3>
+    <p>Your inputs are not stored server-side for reuse.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚡</span>
+    <h3>Instant</h3>
+    <p>Results in seconds with probability & explanation.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🧠</span>
+    <h3>AI-Powered</h3>
+    <p>Hybrid ensemble trained on the PIMA dataset.</p>
+  </div>
+</section>
 {% endblock %}
