@@ -1,23 +1,105 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Predict Diabetes Risk</h2>
-<form method="POST" class="form-control p-4">
-    <label>Pregnancies:</label>
-    <input type="number" name="pregnancies" class="form-control mb-3" required>
-    <label>Glucose Level:</label>
-    <input type="number" name="glucose" class="form-control mb-3" step="0.1" required>
-    <label>Blood Pressure:</label>
-    <input type="number" name="blood_pressure" class="form-control mb-3" required>
-    <label>Skin Thickness:</label>
-    <input type="number" name="skin_thickness" class="form-control mb-3" required>
-    <label>Insulin:</label>
-    <input type="number" name="insulin" class="form-control mb-3" required>
-    <label>BMI:</label>
-    <input type="number" name="bmi" class="form-control mb-3" step="0.1" required>
-    <label>Diabetes Pedigree Function:</label>
-    <input type="number" name="pedigree" class="form-control mb-3" step="0.01" required>
-    <label>Age:</label>
-    <input type="number" name="age" class="form-control mb-3" required>
-    <button type="submit" class="btn btn-success">Predict</button>
-</form>
+<h2 class="page-title">Risk Calculator</h2>
+
+<div id="wizard" class="wizard">
+  <!-- progress -->
+  <div class="wizard__progress">
+    <div class="wizard__bar" id="wizBar" style="width: 33%"></div>
+  </div>
+
+  <form id="riskForm" method="POST" class="wizard__form">
+    <!-- STEP 1 -->
+    <div class="wizard__step is-active" data-step="1">
+      <h3>About you</h3>
+      <div class="grid-2">
+        <div>
+          <label class="form-label">Age</label>
+          <input type="number" min="1" max="120" name="age" class="form-control" required>
+        </div>
+        <div>
+          <label class="form-label">Pregnancies <small class="muted">(0 if not applicable)</small></label>
+          <input type="number" min="0" max="20" name="pregnancies" class="form-control" required>
+        </div>
+      </div>
+      <div class="wizard__nav">
+        <button type="button" class="btn btn-next">Next</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="wizard__step" data-step="2">
+      <h3>Measurements</h3>
+      <div class="grid-2">
+        <div>
+          <label class="form-label">Glucose (mg/dL)</label>
+          <input type="number" min="0" step="0.1" name="glucose" class="form-control" required>
+        </div>
+        <div>
+          <label class="form-label">Blood Pressure (mmHg)</label>
+          <input type="number" min="0" name="blood_pressure" class="form-control" required>
+        </div>
+        <div>
+          <label class="form-label">Skin Thickness (mm)</label>
+          <input type="number" min="0" name="skin_thickness" class="form-control" required>
+        </div>
+        <div>
+          <label class="form-label">Insulin (IU/mL)</label>
+          <input type="number" min="0" name="insulin" class="form-control" required>
+        </div>
+      </div>
+      <div class="wizard__nav">
+        <button type="button" class="btn btn-prev">Back</button>
+        <button type="button" class="btn btn-next">Next</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="wizard__step" data-step="3">
+      <h3>Body metrics</h3>
+      <div class="grid-2">
+        <div>
+          <label class="form-label">BMI</label>
+          <input type="number" min="0" step="0.1" name="bmi" class="form-control" required>
+        </div>
+        <div>
+          <label class="form-label">Diabetes Pedigree Function</label>
+          <input type="number" min="0" step="0.01" name="pedigree" class="form-control" required>
+        </div>
+      </div>
+      <div class="wizard__nav">
+        <button type="button" class="btn btn-prev">Back</button>
+        <button type="submit" class="btn btn-cta">See my risk</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+(function () {
+  const steps = [...document.querySelectorAll('.wizard__step')];
+  const nextBtns = document.querySelectorAll('.btn-next');
+  const prevBtns = document.querySelectorAll('.btn-prev');
+  const bar = document.getElementById('wizBar');
+  let current = 0;
+
+  function show(i) {
+    steps[current].classList.remove('is-active');
+    current = i;
+    steps[current].classList.add('is-active');
+    bar.style.width = ((current+1)/steps.length*100) + '%';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  nextBtns.forEach(b => b.addEventListener('click', () => {
+    const inputs = steps[current].querySelectorAll('input[required]');
+    for (const el of inputs) { if (!el.reportValidity()) return; }
+    if (current < steps.length-1) show(current+1);
+  }));
+
+  prevBtns.forEach(b => b.addEventListener('click', () => {
+    if (current > 0) show(current-1);
+  }));
+})();
+</script>
 {% endblock %}
