@@ -3,31 +3,37 @@
 <section class="hero">
   <div class="hero__inner">
     <div class="hero__copy">
-      <h1 class="hero__title">Check your diabetes risk with AI</h1>
-      <p class="hero__sub">Answer a few questions and get an instant, private risk estimate powered by our model.</p>
-      <a class="btn btn-cta" href="/predict">Start risk check</a>
+      <h1 class="hero__title">AI Diabetes Risk Calculator</h1>
+      <p class="hero__sub">
+        Get your personalized diabetes risk score instantly.<br>
+        Our AI-powered hybrid model gives fast and accurate predictions.
+      </p>
+      <a class="btn btn-risk" href="/predict">Start Risk Check</a>
     </div>
     <div class="hero__art">
-      <img src="{{ url_for('static', filename='images/hero.jpg') }}" alt="Risk calculator illustration" onerror="this.style.display='none'">
+      <img src="{{ url_for('static', filename='images/hero.jpg') }}" alt="Diabetes Risk Illustration" onerror="this.style.display='none'">
     </div>
   </div>
 </section>
 
-<section class="features">
-  <div class="feature">
-    <span class="feature__icon">🔒</span>
-    <h3>Private</h3>
-    <p>Your inputs are not stored server-side for reuse.</p>
-  </div>
-  <div class="feature">
-    <span class="feature__icon">⚡</span>
-    <h3>Instant</h3>
-    <p>Results in seconds with probability & explanation.</p>
-  </div>
-  <div class="feature">
-    <span class="feature__icon">🧠</span>
-    <h3>AI-Powered</h3>
-    <p>Hybrid ensemble trained on the PIMA dataset.</p>
+<section class="info">
+  <h2 class="section-title">Why use this tool?</h2>
+  <div class="features">
+    <div class="feature">
+      <img src="{{ url_for('static', filename='images/private.png') }}" alt="Private" class="feature__img">
+      <h3>Private</h3>
+      <p>Your answers are not saved — results are yours only.</p>
+    </div>
+    <div class="feature">
+      <img src="{{ url_for('static', filename='images/instant.png') }}" alt="Instant" class="feature__img">
+      <h3>Instant</h3>
+      <p>Results in seconds with probability and clear messaging.</p>
+    </div>
+    <div class="feature">
+      <img src="{{ url_for('static', filename='images/ai.png') }}" alt="AI Powered" class="feature__img">
+      <h3>AI Powered</h3>
+      <p>Powered by hybrid ML models for better accuracy.</p>
+    </div>
   </div>
 </section>
 {% endblock %}
